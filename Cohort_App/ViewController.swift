@@ -7,11 +7,10 @@
 //
 
 import UIKit
+import Firebase
 import FBSDKLoginKit
 
-class ViewController: UIViewController {
-
-    @IBOutlet weak var loginButton: FBSDKLoginButton?
+class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,7 @@ class ViewController: UIViewController {
         else {
             
         let loginButton = FBSDKLoginButton()
-        //loginButton.delegate = self
+        loginButton.delegate = self
         loginButton.center = self.view.center
         self.view.addSubview(loginButton)
         
@@ -34,14 +33,9 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    @IBAction func FBLogin(_ sender: Any) {
-        loginButton(sender)
-    }
- */
+ 
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError?) {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
         
         if let error = error {
             print(error.localizedDescription)
@@ -49,15 +43,28 @@ class ViewController: UIViewController {
         }
         
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        /*
-        //from firebase authentication
+        
+        
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-            // ...
+            
             if let error = error {
-                // ...
+                print(error.localizedDescription)
                 return
             }
+            
+            //go to next view controller
+        }
+ 
     }
-    */
-
+ 
+    public func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+    }
 }
