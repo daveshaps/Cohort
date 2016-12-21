@@ -16,8 +16,9 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         
         if  FBSDKAccessToken.current() != nil {
-            //go to next viewcontroller
+            self.performSegue(withIdentifier: "loginTransition", sender: self) //go to next viewcontroller
         }
+            
         else {
             
         let loginButton = FBSDKLoginButton()
@@ -42,9 +43,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             return
         }
         
+        //exchange fb credential for a firebase credential
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
-        
+        //sign into firebase using credential
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             
             if let error = error {
@@ -52,7 +54,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 return
             }
             
-            //go to next view controller
+            self.performSegue(withIdentifier: "intialSetupTransition", sender: self)  //go to next view controller,
         }
  
     }
@@ -68,3 +70,16 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
     }
 }
+
+
+/*
+//get person's information from fb
+if (FBSDKAccessToken.current() != nil) {
+    FBSDKGraphRequest(graphPath: "me", parameters: nil).start(withCompletionHandler: {(_ connection: FBSDKGraphRequestConnection, _ result: Any, _ error: Error) -> Void in
+        if !error {
+            print("fetched user:\(result)")
+            //set variable for Person object to represent user
+        }
+    })
+}
+ */
