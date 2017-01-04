@@ -1,72 +1,32 @@
-////
-////  Questions.swift
-////  Cohort_App
-////
-////  Created by Wish Carr on 12/19/16.
-////  Copyright © 2016 David Shapiro. All rights reserved.
-////
 //
-//import Foundation
-//import UIKit
-//import FirebaseAuth
+//  Question.swift
+//  Cohort_App
 //
-////Person Class
-//class Person: NSObject {
-//    
-//    var userID = String
-//    var firstName: String
-//    var lastName: String
-//    var email: String
-//    var birthday: Int
-//    var location: location?
-//    
-//    init (firstName: String, lastName: String, email: String, birthday: Int, location: location?) {
-//        self.userID = user.uid
-//        self.firstName = firstName
-//        self.lastName = lastName
-//        self.email = email
-//        self.birthday = birthday
-//        self.location = location
-//        
-//        super.init()
-//    }
-//    
-//}
-//    
-////Answer class
-//    class Answer: NSObject {
-//        
-//        var owner = String?
-//        var answer: String?
-//        var answerTuple = (String, String)
-//        
-//        init (owner: String, answer: String) {
-//            self.owner = owner
-//            self.answer = answer
-//            self.answerTuple = (owner, answer)
-//            super.init()
-//        }
-//    }
+//  Created by Wish Carr on 1/2/17.
+//  Copyright © 2017 David Shapiro. All rights reserved.
 //
-////Question class
-//class Question: NSObject {
-//    
-//    var questionOwner = String?
-//    var question = String?
-//    var answers = [Answer?]
-//    
-//    
-//    init (questionOwner: String, question: String, answers: [Answer]) { //do I need to set array to nil?
-//        self.questionOwner = questionOwner
-//        self.question = question
-//        self.answers = answers
-//        super.init()
-//    }
-//    
-//    //adds new answer object to answer array for a given question
-//    func addAnswer(answer: String) {
-//        let answer: Answer = (self.Person, answer)
-//        self.answers.append(answer)
-//    }
-//    
-//}
+
+import Foundation
+
+
+//Question Class
+class Question: NSObject {
+    
+    var questionText: String
+    var ownerUserID: String
+    var ownerFirstName: String
+    var questionLocation: NSDictionary
+    var questionKey: String
+    var answerArray: [NSDictionary]?
+    
+    init (questionText: String, ownerUserID: String, ownerFirstName: String, location: NSDictionary, questionKey: String) {
+        self.questionText = questionText
+        self.ownerUserID = ownerUserID
+        self.ownerFirstName = ownerFirstName
+        self.questionLocation = questionLocation
+        self.questionKey = questionKey
+        
+        super.init()
+    }
+    
+}

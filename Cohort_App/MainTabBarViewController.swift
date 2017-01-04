@@ -12,8 +12,7 @@ class MainTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        //create Person object calling Firebase to get variable values
         
     }
 

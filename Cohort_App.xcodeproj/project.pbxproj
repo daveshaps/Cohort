@@ -20,11 +20,13 @@
 		30285D4F1E008F0E005BCD28 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30285D4E1E008F0E005BCD28 /* FBSDKLoginKit.framework */; };
 		30285D511E008F20005BCD28 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30285D501E008F20005BCD28 /* FBSDKShareKit.framework */; };
 		30285D581E04A690005BCD28 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30285D571E04A690005BCD28 /* MainTabBarViewController.swift */; };
-		30552EC41E0879C000AED4DD /* AnswerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552EC31E0879C000AED4DD /* AnswerTableViewController.swift */; };
-		30552EC61E087B6200AED4DD /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552EC51E087B6200AED4DD /* Question.swift */; };
+		30552EC41E0879C000AED4DD /* QuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552EC31E0879C000AED4DD /* QuestionTableViewController.swift */; };
 		30552EC81E0884D400AED4DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552EC71E0884D400AED4DD /* SettingsViewController.swift */; };
 		30552ECA1E088DE400AED4DD /* SingleQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552EC91E088DE400AED4DD /* SingleQuestionViewController.swift */; };
 		30552ECC1E09D09100AED4DD /* InitialSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552ECB1E09D09100AED4DD /* InitialSetupViewController.swift */; };
+		30552ECE1E135AF100AED4DD /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552ECD1E135AF100AED4DD /* Person.swift */; };
+		30552ED01E1B096500AED4DD /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552ECF1E1B096500AED4DD /* Question.swift */; };
+		30552ED61E1B1CA500AED4DD /* MyQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30552ED51E1B1CA500AED4DD /* MyQuestionsTableViewController.swift */; };
 		56F854313A62FD55096DE5D2 /* Pods_Cohort_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3EDB8C4C88DABA1703517F /* Pods_Cohort_AppUITests.framework */; };
 		D523D4B94F323E9FD85C2929 /* Pods_Cohort_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B241D5F87C52B5CB3E4304 /* Pods_Cohort_App.framework */; };
 		E0E572A81E9189FFFECDDAE0 /* Pods_Cohort_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248068B6F659BD13E7F05597 /* Pods_Cohort_AppTests.framework */; };
@@ -71,11 +73,13 @@
 		30285D501E008F20005BCD28 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		30285D521E009587005BCD28 /* Cohort_App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cohort_App-Bridging-Header.h"; sourceTree = "<group>"; };
 		30285D571E04A690005BCD28 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
-		30552EC31E0879C000AED4DD /* AnswerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerTableViewController.swift; sourceTree = "<group>"; };
-		30552EC51E087B6200AED4DD /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		30552EC31E0879C000AED4DD /* QuestionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableViewController.swift; sourceTree = "<group>"; };
 		30552EC71E0884D400AED4DD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		30552EC91E088DE400AED4DD /* SingleQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleQuestionViewController.swift; sourceTree = "<group>"; };
 		30552ECB1E09D09100AED4DD /* InitialSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialSetupViewController.swift; sourceTree = "<group>"; };
+		30552ECD1E135AF100AED4DD /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		30552ECF1E1B096500AED4DD /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		30552ED51E1B1CA500AED4DD /* MyQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		34B241D5F87C52B5CB3E4304 /* Pods_Cohort_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cohort_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3EDB8C4C88DABA1703517F /* Pods_Cohort_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cohort_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6691E19978F6672EA01C2CC4 /* Pods-Cohort_AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort_AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort_AppUITests/Pods-Cohort_AppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,19 +172,21 @@
 		30285D191E008527005BCD28 /* Cohort_App */ = {
 			isa = PBXGroup;
 			children = (
-				30552EC51E087B6200AED4DD /* Question.swift */,
-				30285D481E0085C5005BCD28 /* GoogleService-Info.plist */,
+				30552ECD1E135AF100AED4DD /* Person.swift */,
+				30552ECF1E1B096500AED4DD /* Question.swift */,
 				30285D1A1E008527005BCD28 /* AppDelegate.swift */,
 				30285D1C1E008527005BCD28 /* ViewController.swift */,
 				30552ECB1E09D09100AED4DD /* InitialSetupViewController.swift */,
 				30552EC71E0884D400AED4DD /* SettingsViewController.swift */,
 				30285D571E04A690005BCD28 /* MainTabBarViewController.swift */,
-				30552EC31E0879C000AED4DD /* AnswerTableViewController.swift */,
+				30552EC31E0879C000AED4DD /* QuestionTableViewController.swift */,
 				30552EC91E088DE400AED4DD /* SingleQuestionViewController.swift */,
+				30552ED51E1B1CA500AED4DD /* MyQuestionsTableViewController.swift */,
 				30285D1E1E008527005BCD28 /* Main.storyboard */,
 				30285D211E008527005BCD28 /* Assets.xcassets */,
 				30285D231E008527005BCD28 /* LaunchScreen.storyboard */,
 				30285D261E008527005BCD28 /* Info.plist */,
+				30285D481E0085C5005BCD28 /* GoogleService-Info.plist */,
 				30285D521E009587005BCD28 /* Cohort_App-Bridging-Header.h */,
 			);
 			path = Cohort_App;
@@ -488,11 +494,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				30285D581E04A690005BCD28 /* MainTabBarViewController.swift in Sources */,
-				30552EC41E0879C000AED4DD /* AnswerTableViewController.swift in Sources */,
+				30552EC41E0879C000AED4DD /* QuestionTableViewController.swift in Sources */,
 				30552ECC1E09D09100AED4DD /* InitialSetupViewController.swift in Sources */,
+				30552ED01E1B096500AED4DD /* Question.swift in Sources */,
 				30552ECA1E088DE400AED4DD /* SingleQuestionViewController.swift in Sources */,
+				30552ED61E1B1CA500AED4DD /* MyQuestionsTableViewController.swift in Sources */,
 				30285D1D1E008527005BCD28 /* ViewController.swift in Sources */,
-				30552EC61E087B6200AED4DD /* Question.swift in Sources */,
+				30552ECE1E135AF100AED4DD /* Person.swift in Sources */,
 				30285D1B1E008527005BCD28 /* AppDelegate.swift in Sources */,
 				30552EC81E0884D400AED4DD /* SettingsViewController.swift in Sources */,
 			);
