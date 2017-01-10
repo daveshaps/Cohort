@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-// import geofire & CLLocation?
+import GeoFire
 
 class QuestionTableViewController: UITableViewController {
 
@@ -17,13 +17,63 @@ class QuestionTableViewController: UITableViewController {
     
     var ref:FIRDatabaseReference?
     var databaseHandle:FIRDatabase?
-    var questionsArray: [NSDictionary]?
+    var questionsArray: [NSArray]?
     
     //MARK: - view life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //TODO:- might need to make geofirequery here instead of all of this...
+        
+        let appDelegate = UIApplication.shared as! AppDelegate
+        var personLatitude = appDelegate.currentPerson?.location["latitude"]
+        var personLongitude = appDelegate.currentPerson?.location["longitude"]
+        
+        let center = CLLocation(latitude: personLatitude, longitude: personLongitude)
+        
+        // Query locations at person's lat & long with a radius of 7 kilometers
+        var circleQuery = geoFire.queryAtLocation(center, withRadius: 7.0)
+        
+        //observe to see when keys matching criteria are found
+        var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+            
+            println("Key '\(key)' entered the search area and is at location '\(location)'")
+            
+            //append questions to array one at a time
+            
+            //TODO:- need to get key's parent key...not sure if code below works...pretty sure it doesn't
+            
+            let parentKey = key.parent().name()
+            let questionLocation = ["latitude": location.coordinate.latitude, "longtitude": location.coordinate.longitude]
+            
+            let basicInfoDict = ref?.child("Questions").child(parentKey).child("questionInfo").observeSingleEvent(of: .value, with: { (snapshotOfQuestionInfo) in
+                // Get question value
+                let questionInfoArray = snapshotOfQuestionInfo.value as? NSArray
+                
+                let questionText = questionBasicInfoDict["questionText"]
+                let ownerFirstName = questionBasicInfoDict["ownerFirstName"]
+                let ownerUserID = questionBasicInfoDict["ownerUserID"]
+                
+                let questionKey = questionBasicInfoDict["questionKey"]
+                
+                //create new question object
+                let newQuestion = Question(questionText: questionText, ownerUserID: ownerUserID, ownerFirstName: ownerFirstName, questionKey: questionKey)
+                
+                //append new question to array
+                self.questionArray.append(newQuestion)
 
+        })
+        
+        //signifies that all keys have been loaded
+        query.observeReadyWithBlock({
+            println("All initial data has been loaded and events have been fired!")
+            
+            //reload table
+            tableView.reloadData()
+        })
+        
+        
         ref = FIRDatabase.database().reference()
         //listen for children being added
         databaseHandle = ref?.child("Questions").observe(.childAdded, with: { (snapshot) in
@@ -31,18 +81,42 @@ class QuestionTableViewController: UITableViewController {
             
             let questionKey = snapshot.value as? String
             
-            let basicInfoDict = ref?.child("Questions").child(questionKey).observeSingleEvent(of: .value, with: { (snapshotOfQuestionInfo) in
-                // Get user value
+            let basicInfoDict = ref?.child("Questions").child(questionKey).child("questionInfo").observeSingleEvent(of: .value, with: { (snapshotOfQuestionInfo) in
+                // Get question value
                 let questionInfoArray = snapshotOfQuestionInfo.value as? NSArray
                 
                 let questionText = questionBasicInfoDict["questionText"]
                 let ownerFirstName = questionBasicInfoDict["ownerFirstName"]
                 let ownerUserID = questionBasicInfoDict["ownerUserID"]
-                let questionLocation = questionBasicInfoDict["questionLocation"]
+                
                 let questionKey = questionBasicInfoDict["questionKey"]
                 
-                let newQuestion = Question(questionText: questionText, ownerUserID: ownerUserID, ownerFirstName: ownerFirstName, location: questionLocation, questionKey: questionKey)
+                //get location using firebase geofire call
+                
+                let geofireRef = FIRDatabase.database().reference()
+                let geoFire = GeoFire(firebaseRef: geofireRef)
+                
+                var questionLocation: NSDictionary?
+                
+                geoFire.getLocationForKey("firebase-hq", withCallback: { (location, error) in
+                    if (error != nil) {
+                        println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+                    } else if (location != nil) {
+                        
+                        //set location dictionary
+                        questionLocation = ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude]
+                        
+                        println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+                        
+                    } else {
+                        println("GeoFire does not contain a location for \"firebase-hq\"")
+                    }
+                })
+                
+                //create new question object
+                let newQuestion = Question(questionText: questionText, ownerUserID: ownerUserID, ownerFirstName: ownerFirstName, questionKey: questionKey)
             
+                //append new question to array
                 self.questionArray.append(newQuestion)
                 tableView.reloadData()
             

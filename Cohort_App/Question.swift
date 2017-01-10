@@ -19,7 +19,7 @@ class Question: NSObject {
     var questionKey: String
     var answerArray: [NSDictionary]?
     
-    init (questionText: String, ownerUserID: String, ownerFirstName: String, location: NSDictionary, questionKey: String) {
+    init (questionText: String, ownerUserID: String, ownerFirstName: String, questionLocation: NSDictionary, questionKey: String) {
         self.questionText = questionText
         self.ownerUserID = ownerUserID
         self.ownerFirstName = ownerFirstName

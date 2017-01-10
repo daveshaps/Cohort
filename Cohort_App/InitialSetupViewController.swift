@@ -47,15 +47,15 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         self.submitButton.isEnabled = false
         
         //picker delegate and datasource and content
-        self.birthdayPicker.delegate = self
-        self.birthdayPicker.dataSource = self
+        //self.birthdayPicker.delegate = self
+        //self.birthdayPicker.dataSource = self
         
         let date = NSDate()
         let calendar = NSCalendar.autoupdatingCurrent
         let components = calendar.dateComponents([.year], from: date as Date)
         let year = components.year
         var yearArray: [Int] = []
-        for i in 1...80 {
+        for i in 0...79 {
             let aYear = year! - i
             yearArray.append(aYear)
         }
@@ -96,24 +96,39 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
     
     //read in zip and convert to long lat
     
-    @IBAction func zipCodeValueChanged(_ sender: Any) {
+    @IBAction func zipCodeValueChanged(_ sender: UITextField) {
         let zipCode = sender.text
         
         var geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(zipCode, completionHandler: {(_ placemarks: [Any], _ error: Error) -> Void in
-            var placemark = placemarks[0]
-            var location = placemark.location
-            var coordinate = location.coordinate
-            print("Latitude \(coordinate.latitude)")
-            print("Longitude \(coordinate.longitude)")
+        geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+            
+            var placemark = placemarks?[0]
+            var location = placemark?.location
+            var coordinate = location?.coordinate
+            print("Latitude \(coordinate?.latitude)")
+            print("Longitude \(coordinate?.longitude)")
+            
+            var latitude: String
+            var longitude: String
+            
+            if var latitude = coordinate?.latitude {
+                latitude = (coordinate?.latitude)!
+            }
+            if var longitude = coordinate?.longitude {
+                longitude = (coordinate?.longitude)!
+            }
             
             //pass coordinates to person object in app delegate
             let appDelegate = UIApplication.shared as! AppDelegate
-            appDelegate.currentPerson.location = [latitude: coordinate.latitude, longitude: coordinate.longitude]
+            appDelegate.currentPerson?.location["latitude"] = latitude
+            appDelegate.currentPerson?.location["longitude"] = longitude
+            appDelegate.currentPerson?.zipCode = zipCode!
             
-        })
+        } as! CLGeocodeCompletionHandler)
         
     }
+    
+
     
     
     
@@ -122,7 +137,7 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         //update person object in app delegate
         let appDelegate = UIApplication.shared as! AppDelegate
-        appDelegate.currentPerson.gender = sender.selectedSegmentIndex
+        appDelegate.currentPerson?.gender = sender.selectedSegmentIndex
         
         //note 0 is male, 1 is female
         
@@ -148,7 +163,7 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //update birthday in person object in app delegate
         let appDelegate = UIApplication.shared as! AppDelegate
-        appDelegate.currentPerson.birthday = pickerDataSource[row]
+        appDelegate.currentPerson?.birthday = pickerDataSource[row]
         
         self.birthdayYes = true
         self.validate()
@@ -172,11 +187,24 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         
         let appDelegate = UIApplication.shared as! AppDelegate
 
-        ref?.child("Users").child(userID!).child("birthday").setValue(appDelegate.currentPerson.birthday)
+        //set reference to dictionary that is the value for "basicInfo" and edit the dict. locally then overwrite on firebase
         
-        ref?.child("Users").child(userID!).child("gender").setValue(appDelegate.currentPerson.gender)
+        let userRef = FIRDatabase.database().reference(withPath: "Users").child(self.userID!).child("basicInfo")
         
-        //TODO:- need to push location to firebase
+        let personDictionary:NSDictionary = [firstName: appDelegate.currentPerson?.firstName,lastName: appDelegate.currentPerson?.lastName,email: appDelegate.currentPerson?.email, gender: appDelegate.currentPerson?.gender, birthday: appDelegate.currentPerson?.birthday, zipCode: appDelegate.currentPerson?.zipCode]
+        
+        //update user information in firebase
+        userRef.child("basicInfo").setValue(personDictionary as NSDictionary?)
+        
+        //push location to firebase via geofire
+        
+        //setup Geofire reference
+        let geofireRef = FIRDatabase.database().reference(withPath:"Users").child(self.userID!).child("location")
+        let geoFire = GeoFire(firebaseRef: geofireRef)
+        
+        //set location value in firebase via GeoFire
+        geoFire.setLocation(CLLocation(latitude: appDelegate.currentPerson?.location["latitude"], longitude: appDelegate.currentPerson?.location["longitude"]), forKey: "location")
+
         
         //go to the main tab bar view controller
         self.performSegue(withIdentifier: "loginTransition", sender: self)

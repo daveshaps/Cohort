@@ -12,7 +12,7 @@ import Firebase
 import FirebaseDatabase
 
 
-class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class SettingsViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
 //Variables
     var ref:FIRDatabaseReference?
@@ -23,7 +23,9 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var birthdayPicker: UIPickerView!
-    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    
     var pickerDataSource: [Int] = [1]
     
     let locationManager = CLLocationManager()
@@ -34,15 +36,15 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         super.viewDidLoad()
 
         //picker delegate and datasource and content
-        self.birthdayPicker.delegate = self
-        self.birthdayPicker.dataSource = self
+        //self.birthdayPicker.delegate = self
+        //self.birthdayPicker.dataSource = self
         
         let date = NSDate()
         let calendar = NSCalendar.autoupdatingCurrent
         let components = calendar.dateComponents([.year], from: date as Date)
         let year = components.year
         var yearArray: [Int] = []
-        for i in 1...80 {
+        for i in 0...79 {
             let aYear = year! - i
             yearArray.append(aYear)
         }
@@ -50,6 +52,19 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         
         //setup reference to FIRDatabase
         ref = FIRDatabase.database().reference()
+        
+        //make appDelegate reference
+        let appDelegate = UIApplication.shared as! AppDelegate
+        
+        //setup initial picker value
+        let bDay = appDelegate.currentPerson?.birthday
+        let bDayRow = year! - bDay!
+        birthdayPicker.selectRow(bDayRow, inComponent: 1, animated: true)
+        //setup initial location value
+        zipCodeTextField.text = appDelegate.currentPerson?.location["zipCode"]
+        //setup initial segmented control gender value
+        genderSegmentedControl.selectedSegmentIndex = (appDelegate.currentPerson?.gender)!
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,22 +73,37 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     }
     
     //location changed value
-    @IBAction func zipCodeValueChanged(_ sender: Any) {
+    @IBAction func zipCodeValueChanged(_ sender: UITextField) {
         let zipCode = sender.text
         
+        
         var geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(zipCode, completionHandler: {(_ placemarks: [Any], _ error: Error) -> Void in
-            var placemark = placemarks[0]
-            var location = placemark.location
-            var coordinate = location.coordinate
-            print("Latitude \(coordinate.latitude)")
-            print("Longitude \(coordinate.longitude)")
+        geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+            
+            var placemark = placemarks?[0]
+            var location = placemark?.location
+            var coordinate = location?.coordinate
+            print("Latitude \(coordinate?.latitude)")
+            print("Longitude \(coordinate?.longitude)")
+            
+            var latitude: String
+            var longitude: String
+            
+            if var latitude = coordinate?.latitude {
+                latitude = (coordinate?.latitude)!
+            }
+            if var longitude = coordinate?.longitude {
+                longitude = (coordinate?.longitude)!
+            }
             
             //pass coordinates to person object in app delegate
             let appDelegate = UIApplication.shared as! AppDelegate
-            appDelegate.currentPerson.location = [latitude: coordinate.latitude, longitude: coordinate.longitude]
+            appDelegate.currentPerson?.location["latitude"] = latitude
+            appDelegate.currentPerson?.location["longitude"] = longitude
+            appDelegate.currentPerson?.zipCode = zipCode!
             
-        })
+            } as! CLGeocodeCompletionHandler)
+
     }
     
     //segmented control value changed
@@ -81,12 +111,10 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         //update person object in app delegate
         let appDelegate = UIApplication.shared as! AppDelegate
-        appDelegate.currentPerson.gender = sender.selectedSegmentIndex
+        appDelegate.currentPerson?.gender = sender.selectedSegmentIndex
         
         //note 0 is male, 1 is female
         
-        self.genderYes = true
-        self.validate()
     }
     
     //picker delegate methods
@@ -107,10 +135,8 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //update birthday in person object in app delegate
         let appDelegate = UIApplication.shared as! AppDelegate
-        appDelegate.currentPerson.birthday = pickerDataSource[row]
+        appDelegate.currentPerson?.birthday = pickerDataSource[row]
         
-        self.birthdayYes = true
-        self.validate()
     }
     
     
@@ -120,19 +146,20 @@ class SettingsViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         
         let appDelegate = UIApplication.shared as! AppDelegate
         
-        ref?.child("Users").child(userID!).child("birthday").setValue(appDelegate.currentPerson.birthday)
+        ref?.child("Users").child(userID!).child("birthday").setValue(appDelegate.currentPerson?.birthday)
         
-        ref?.child("Users").child(userID!).child("gender").setValue(appDelegate.currentPerson.gender)
+        ref?.child("Users").child(userID!).child("gender").setValue(appDelegate.currentPerson?.gender)
         
         //TODO:- need to push location to firebase
         
     }
-
-
     
     
+    @IBAction func logout(_ sender: Any) {
+        self.performSegue(withIdentifier: "logout", sender: self)
+    }
     
-    
+    //TODO:- Need an FB logout button
 
     /*
     // MARK: - Navigation

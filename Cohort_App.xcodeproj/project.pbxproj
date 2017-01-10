@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30285D1B1E008527005BCD28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30285D1A1E008527005BCD28 /* AppDelegate.swift */; };
-		30285D1D1E008527005BCD28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30285D1C1E008527005BCD28 /* ViewController.swift */; };
+		30285D1D1E008527005BCD28 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30285D1C1E008527005BCD28 /* LoginViewController.swift */; };
 		30285D201E008527005BCD28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30285D1E1E008527005BCD28 /* Main.storyboard */; };
 		30285D221E008527005BCD28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30285D211E008527005BCD28 /* Assets.xcassets */; };
 		30285D251E008527005BCD28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30285D231E008527005BCD28 /* LaunchScreen.storyboard */; };
@@ -55,7 +55,7 @@
 		2B432F62708D2828BFE803BF /* Pods-Cohort_AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cohort_AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cohort_AppUITests/Pods-Cohort_AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		30285D171E008527005BCD28 /* Cohort_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cohort_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30285D1A1E008527005BCD28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		30285D1C1E008527005BCD28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		30285D1C1E008527005BCD28 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		30285D1F1E008527005BCD28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30285D211E008527005BCD28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30285D241E008527005BCD28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 				30552ECD1E135AF100AED4DD /* Person.swift */,
 				30552ECF1E1B096500AED4DD /* Question.swift */,
 				30285D1A1E008527005BCD28 /* AppDelegate.swift */,
-				30285D1C1E008527005BCD28 /* ViewController.swift */,
+				30285D1C1E008527005BCD28 /* LoginViewController.swift */,
 				30552ECB1E09D09100AED4DD /* InitialSetupViewController.swift */,
 				30552EC71E0884D400AED4DD /* SettingsViewController.swift */,
 				30285D571E04A690005BCD28 /* MainTabBarViewController.swift */,
@@ -499,7 +499,7 @@
 				30552ED01E1B096500AED4DD /* Question.swift in Sources */,
 				30552ECA1E088DE400AED4DD /* SingleQuestionViewController.swift in Sources */,
 				30552ED61E1B1CA500AED4DD /* MyQuestionsTableViewController.swift in Sources */,
-				30285D1D1E008527005BCD28 /* ViewController.swift in Sources */,
+				30285D1D1E008527005BCD28 /* LoginViewController.swift in Sources */,
 				30552ECE1E135AF100AED4DD /* Person.swift in Sources */,
 				30285D1B1E008527005BCD28 /* AppDelegate.swift in Sources */,
 				30552EC81E0884D400AED4DD /* SettingsViewController.swift in Sources */,

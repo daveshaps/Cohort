@@ -24,7 +24,7 @@ class MyQuestionsTableViewController: UITableViewController {
         ref = FIRDatabase.database().reference()
         
         //create questionsArray with listener
-        databaseHandle = ref?.child("Users").child(....)observe(.childAdded, with: { (snapshot) in
+        databaseHandle = ref?.child("Users").child(....).observe(.childAdded, with: { (snapshot) in
             
             
         })
