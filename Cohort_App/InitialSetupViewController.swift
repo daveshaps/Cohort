@@ -13,7 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import GeoFire
 
-class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class InitialSetupViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //MARK: - Variables
     var ref:FIRDatabaseReference?
@@ -28,6 +28,7 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
     @IBOutlet weak var birthdayPicker: UIPickerView!
     @IBOutlet weak var submitButton: UIButton!
     var pickerDataSource: [String] = [""]
+    var zipCode:String?
 
     //let locationManager = CLLocationManager()
     
@@ -55,6 +56,9 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         self.birthdayPicker.delegate = self
         self.birthdayPicker.dataSource = self
         
+        //textField delegate and datasource
+        self.zipCodeTextField.delegate = self
+        
         //setup reference to FIRDatabase
         ref = FIRDatabase.database().reference()
     }
@@ -80,14 +84,41 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK:- read in zip code and convert to long lat
+    //MARK:- read in zip code (need a function that does this when person presses return)
+
+    /*6
+    @IBAction func zipCodeChanged(_ sender: UITextField) {
+        print("zip code value changed")
+        print(sender.text)
+        self.zipCode = sender.text
+        self.zipToCoordinates()
+        self.locationYes = true
+        self.validate()
+    }
+    */
     
-    /*
-    @IBAction func zipCodeValueChanged(_ sender: UITextField) {
-        let zipCode = sender.text
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("text field has returned")
+        print(textField.text)
+        self.zipCode = textField.text
+        self.zipToCoordinates()
+        self.locationYes = true
+        self.validate()
         
-        var geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
+        if (self.zipCode)?.characters.count != 5 {
+            return false
+        }
+        else {
+            return true
+        }
+     }
+    
+    
+    //MARK:-zip to coordinates function
+    func zipToCoordinates() {
+        let geoCoder = CLGeocoder()
+        let zip = self.zipCode!
+        geoCoder.geocodeAddressString(zip, completionHandler: {(placemarks: [CLPlacemark]?, error: Error?) -> Void in
             
             let placemark = placemarks?[0]
             let location = placemark?.location
@@ -99,59 +130,15 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
             let longitude: Double = (coordinate?.longitude)! as Double
             print("Succesfully calculated lat and long:", latitude, longitude)
             
+            //TODO:- this value in current person dictionary for location is coming out nil
             //pass coordinates to person object in app delegate
+            self.appDelegate.currentPerson?.location? = ["latitude": 0.0, "longitude": 0.0]
             self.appDelegate.currentPerson?.location?["latitude"] = latitude
             self.appDelegate.currentPerson?.location?["longitude"] = longitude
-            self.appDelegate.currentPerson?.zipCode = zipCode!
+            self.appDelegate.currentPerson?.zipCode = self.zipCode!
             print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location?["latitude"] as Any,self.appDelegate.currentPerson?.location?["longitude"] as Any)
             
-            } as! CLGeocodeCompletionHandler)
-        
-        self.locationYes = true
-        self.validate()
-    }
-    */
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        if textField == self.zipCodeTextField {
-            
-            let zipCode = textField.text
-            print(zipCode!)
-            
-            let geoCoder = CLGeocoder()
-            geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark], error: NSError?) -> Void in
-                
-                let placemark = placemarks[0]
-                let location = placemark.location
-                let coordinate = location?.coordinate
-                print("Latitude \(coordinate?.latitude)")
-                print("Longitude \(coordinate?.longitude)")
-                
-                let latitude: Double = (coordinate?.latitude)! as Double
-                let longitude: Double = (coordinate?.longitude)! as Double
-                print("Succesfully calculated lat and long:", latitude, longitude)
-                
-                //pass coordinates to person object in app delegate
-                self.appDelegate.currentPerson?.location?["latitude"] = latitude
-                self.appDelegate.currentPerson?.location?["longitude"] = longitude
-                self.appDelegate.currentPerson?.zipCode = zipCode!
-                print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location?["latitude"] as Any,self.appDelegate.currentPerson?.location?["longitude"] as Any)
-                
-                } as! CLGeocodeCompletionHandler)
-            
-            self.locationYes = true
-            self.validate()
-        }
-    }
-    
-    //MARK:- Textfield function
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        for textField in self.view.subviews where textField is UITextField {
-            textField.resignFirstResponder()
-            print("textfield resigned first responder")
-        }
-        return true
+            })
     }
     
     
@@ -220,12 +207,14 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         let geofireRef = FIRDatabase.database().reference(withPath:"Users").child(self.userID!).child("location")
         let geoFire = GeoFire(firebaseRef: geofireRef)
         
-        //set location value in firebase via GeoFire
-        geoFire?.setLocation(CLLocation(latitude: (appDelegate.currentPerson?.location?["latitude"])!, longitude: (appDelegate.currentPerson?.location?["longitude"])!), forKey: "location")
-
+        let latActual = (appDelegate.currentPerson?.location?["latitude"])!
+        let longActual = (appDelegate.currentPerson?.location?["longitude"])!
         
+        //set location value in firebase via GeoFire
+        geoFire?.setLocation(CLLocation(latitude: latActual, longitude: longActual), forKey: "location")
+
         //go to the main tab bar view controller
-        self.performSegue(withIdentifier: "loginTransition", sender: self)
+        self.performSegue(withIdentifier: "initialSetupToMainTabBarSegue", sender: self)
     }
     
     
