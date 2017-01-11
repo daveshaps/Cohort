@@ -31,7 +31,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
+        
         //check to see if user is already logged in
         let userID = FIRAuth.auth()?.currentUser?.uid
         
@@ -40,23 +40,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             self.performSegue(withIdentifier: "loginToMainTabBarSegue", sender: self)
             return
         }
-        */
-        /*
-        //check to see if already logged in with fb
-        if  FBSDKAccessToken.current() != nil {
-            print("Performing segue to main tab bar vc")
-            self.performSegue(withIdentifier: "loginToMainTabBarSegue", sender: self)
-        }
-        */
             
-        //TODO:- add else statement back in
+        else {
         //set up login button if user is not logged in
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         loginButton.center = self.view.center
         self.view.addSubview(loginButton)
         loginButton.readPermissions = ["public_profile", "email", "user_friends"]
-        
+        }
         
     }
     
