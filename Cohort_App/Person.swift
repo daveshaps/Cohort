@@ -20,7 +20,7 @@ class Person: NSObject {
     var email: String
     var gender: Int?
     var birthday: String?
-    var location:  [String: Double]? //might need to set this up as long, lat with nil values
+    var location:  [String: Double] = ["latitude": 0.0, "longitude": 0.0] //might need to set this up as long, lat with 0.0 values
     var zipCode: String?
 
     init (userID: String, firstName: String, lastName: String, email: String) {

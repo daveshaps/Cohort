@@ -139,8 +139,8 @@ func userLocationSetup() {
         })
         
         //set currentPerson's location
-        appDelegate.currentPerson?.location?["latitude"] = latitude
-        appDelegate.currentPerson?.location?["longitude"] = longitude
+        appDelegate.currentPerson?.location["latitude"] = latitude
+        appDelegate.currentPerson?.location["longitude"] = longitude
     }
     
 

@@ -132,11 +132,10 @@ class InitialSetupViewController: UIViewController, UITextFieldDelegate, CLLocat
             
             //TODO:- this value in current person dictionary for location is coming out nil
             //pass coordinates to person object in app delegate
-            self.appDelegate.currentPerson?.location? = ["latitude": 0.0, "longitude": 0.0]
-            self.appDelegate.currentPerson?.location?["latitude"] = latitude
-            self.appDelegate.currentPerson?.location?["longitude"] = longitude
+            self.appDelegate.currentPerson?.location["latitude"] = latitude
+            self.appDelegate.currentPerson?.location["longitude"] = longitude
             self.appDelegate.currentPerson?.zipCode = self.zipCode!
-            print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location?["latitude"] as Any,self.appDelegate.currentPerson?.location?["longitude"] as Any)
+            print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location["latitude"] as Any,self.appDelegate.currentPerson?.location["longitude"] as Any)
             
             })
     }
@@ -207,8 +206,8 @@ class InitialSetupViewController: UIViewController, UITextFieldDelegate, CLLocat
         let geofireRef = FIRDatabase.database().reference(withPath:"Users").child(self.userID!).child("location")
         let geoFire = GeoFire(firebaseRef: geofireRef)
         
-        let latActual = (appDelegate.currentPerson?.location?["latitude"])!
-        let longActual = (appDelegate.currentPerson?.location?["longitude"])!
+        let latActual = (appDelegate.currentPerson?.location["latitude"])!
+        let longActual = (appDelegate.currentPerson?.location["longitude"])!
         
         //set location value in firebase via GeoFire
         geoFire?.setLocation(CLLocation(latitude: latActual, longitude: longActual), forKey: "location")
