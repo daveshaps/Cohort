@@ -13,11 +13,13 @@ import FirebaseAuth
 import FirebaseDatabase
 import GeoFire
 
-class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate,UIPickerViewDataSource {
+class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    //Variables
+    //MARK: - Variables
     var ref:FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var zipCodeTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -25,68 +27,52 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var birthdayPicker: UIPickerView!
     @IBOutlet weak var submitButton: UIButton!
-    var pickerDataSource: [Int] = [1]
+    var pickerDataSource: [String] = [""]
 
-    let locationManager = CLLocationManager()
+    //let locationManager = CLLocationManager()
     
     //validate function variables
     var birthdayYes:Bool = false
     var locationYes:Bool = false
-    var genderYes:Bool = false
+    //var genderYes:Bool = false
     
     
-    //View Life Cycle
+    //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: - TO DO: setup geofire reference
+        //hide back button
+        navigationItem.hidesBackButton = true
+        
+        //TODO:- setup geofire reference
         //let geofireRef = FIRDatabase.database().reference()
-        // let geoFire = GeoFire(firebaseRef: geofireRef)
+        //let geoFire = GeoFire(firebaseRef: geofireRef)
         
         //disable submit button
         self.submitButton.isEnabled = false
         
-        //picker delegate and datasource and content
-        //self.birthdayPicker.delegate = self
-        //self.birthdayPicker.dataSource = self
+        //picker delegate and datasource
+        self.birthdayPicker.delegate = self
+        self.birthdayPicker.dataSource = self
         
+        //setup reference to FIRDatabase
+        ref = FIRDatabase.database().reference()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //setup picker content
         let date = NSDate()
         let calendar = NSCalendar.autoupdatingCurrent
         let components = calendar.dateComponents([.year], from: date as Date)
         let year = components.year
-        var yearArray: [Int] = []
+        var yearArray: [String] = []
         for i in 0...79 {
-            let aYear = year! - i
+            let aYear = ((year! - i) as NSNumber).stringValue
             yearArray.append(aYear)
         }
         pickerDataSource = yearArray
-        
-        //setup reference to FIRDatabase
-        ref = FIRDatabase.database().reference()
-        
-        /*
-        //location setup
-        self.locationManager.delegate = self
-        let authorizationCode = CLLocationManager.authorizationStatus()
-        
-        //if authorization code not determined
-        if authorizationCode == CLAuthorizationStatus.notDetermined && locationManager.responds(to: #selector(CLLocationManager.requestWhenInUseAuthorization))
-        {
-            if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseDescription") != nil
-            {
-                locationManager.requestWhenInUseAuthorization()
-            }
-            else
-            {
-                print("No description provided")
-            }
-        }
-        
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        self.locationManager.requestWhenInUseAuthorization()
-        //could set this to always collecting location data instead. But here we do not.
-        self.locationManager.startUpdatingLocation()
-        */
+        print(yearArray)
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,58 +80,94 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    //read in zip and convert to long lat
+    //MARK:- read in zip code and convert to long lat
     
+    /*
     @IBAction func zipCodeValueChanged(_ sender: UITextField) {
         let zipCode = sender.text
         
         var geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             
-            var placemark = placemarks?[0]
-            var location = placemark?.location
-            var coordinate = location?.coordinate
+            let placemark = placemarks?[0]
+            let location = placemark?.location
+            let coordinate = location?.coordinate
             print("Latitude \(coordinate?.latitude)")
             print("Longitude \(coordinate?.longitude)")
             
-            var latitude: String
-            var longitude: String
-            
-            if var latitude = coordinate?.latitude {
-                latitude = (coordinate?.latitude)!
-            }
-            if var longitude = coordinate?.longitude {
-                longitude = (coordinate?.longitude)!
-            }
+            let latitude: Double = (coordinate?.latitude)! as Double
+            let longitude: Double = (coordinate?.longitude)! as Double
+            print("Succesfully calculated lat and long:", latitude, longitude)
             
             //pass coordinates to person object in app delegate
-            let appDelegate = UIApplication.shared as! AppDelegate
-            appDelegate.currentPerson?.location["latitude"] = latitude
-            appDelegate.currentPerson?.location["longitude"] = longitude
-            appDelegate.currentPerson?.zipCode = zipCode!
+            self.appDelegate.currentPerson?.location?["latitude"] = latitude
+            self.appDelegate.currentPerson?.location?["longitude"] = longitude
+            self.appDelegate.currentPerson?.zipCode = zipCode!
+            print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location?["latitude"] as Any,self.appDelegate.currentPerson?.location?["longitude"] as Any)
             
-        } as! CLGeocodeCompletionHandler)
+            } as! CLGeocodeCompletionHandler)
         
+        self.locationYes = true
+        self.validate()
+    }
+    */
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if textField == self.zipCodeTextField {
+            
+            let zipCode = textField.text
+            print(zipCode!)
+            
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(zipCode!, completionHandler: {(placemarks: [CLPlacemark], error: NSError?) -> Void in
+                
+                let placemark = placemarks[0]
+                let location = placemark.location
+                let coordinate = location?.coordinate
+                print("Latitude \(coordinate?.latitude)")
+                print("Longitude \(coordinate?.longitude)")
+                
+                let latitude: Double = (coordinate?.latitude)! as Double
+                let longitude: Double = (coordinate?.longitude)! as Double
+                print("Succesfully calculated lat and long:", latitude, longitude)
+                
+                //pass coordinates to person object in app delegate
+                self.appDelegate.currentPerson?.location?["latitude"] = latitude
+                self.appDelegate.currentPerson?.location?["longitude"] = longitude
+                self.appDelegate.currentPerson?.zipCode = zipCode!
+                print("Succesfully set zip code and lat long in current Person in App Delegate:", self.appDelegate.currentPerson?.zipCode as Any,self.appDelegate.currentPerson?.location?["latitude"] as Any,self.appDelegate.currentPerson?.location?["longitude"] as Any)
+                
+                } as! CLGeocodeCompletionHandler)
+            
+            self.locationYes = true
+            self.validate()
+        }
     }
     
-
+    //MARK:- Textfield function
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        for textField in self.view.subviews where textField is UITextField {
+            textField.resignFirstResponder()
+            print("textfield resigned first responder")
+        }
+        return true
+    }
     
     
-    
-    //segmented control value changed
+    //MARK:- Segmented Control Function for value changed
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         //update person object in app delegate
-        let appDelegate = UIApplication.shared as! AppDelegate
         appDelegate.currentPerson?.gender = sender.selectedSegmentIndex
         
         //note 0 is male, 1 is female
         
-        self.genderYes = true
         self.validate()
+        print("Segmented control has been picked")
     }
     
-    //picker delegate methods
+    //MARK:- Picker Delegate Methods
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1;
@@ -155,43 +177,39 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         return pickerDataSource.count;
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> Int? {
+    //TODO:- this method is not working!
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerDataSource[row]
     }
     
-    //send birthday to firebase
+    //Function to send birthday to firebase
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //update birthday in person object in app delegate
-        let appDelegate = UIApplication.shared as! AppDelegate
         appDelegate.currentPerson?.birthday = pickerDataSource[row]
         
         self.birthdayYes = true
         self.validate()
+        print ("Birthday has been picked", birthdayYes)
     }
     
-    
-    
-    //validate that all fields have been completed
+    //MARK: - Validate Function confirms that all fields have been completed
     func validate() {
-        if (birthdayYes == true && locationYes == true && genderYes == true) {
-            self.submitButton.isEnabled = false
+        if (birthdayYes == true && locationYes == true) {
+            self.submitButton.isEnabled = true
             print("All fields have been completed")
         }
     }
     
     
-    
-    //finish the setup and update Firebase user information when submit button clicked
+    //MARK:- Function to finish the setup and update Firebase user information when submit button clicked
     @IBAction func finishSetup(_ sender: Any) {
         //update users information in firebase from person object in app delegate
         
-        let appDelegate = UIApplication.shared as! AppDelegate
-
         //set reference to dictionary that is the value for "basicInfo" and edit the dict. locally then overwrite on firebase
         
         let userRef = FIRDatabase.database().reference(withPath: "Users").child(self.userID!).child("basicInfo")
         
-        let personDictionary:NSDictionary = [firstName: appDelegate.currentPerson?.firstName,lastName: appDelegate.currentPerson?.lastName,email: appDelegate.currentPerson?.email, gender: appDelegate.currentPerson?.gender, birthday: appDelegate.currentPerson?.birthday, zipCode: appDelegate.currentPerson?.zipCode]
+        let personDictionary:NSDictionary = ["firstName": appDelegate.currentPerson?.firstName,"lastName": appDelegate.currentPerson?.lastName,"email": appDelegate.currentPerson?.email, "gender": appDelegate.currentPerson?.gender, "birthday": appDelegate.currentPerson?.birthday, "zipCode": appDelegate.currentPerson?.zipCode]
         
         //update user information in firebase
         userRef.child("basicInfo").setValue(personDictionary as NSDictionary?)
@@ -203,7 +221,7 @@ class InitialSetupViewController: UIViewController, CLLocationManagerDelegate, U
         let geoFire = GeoFire(firebaseRef: geofireRef)
         
         //set location value in firebase via GeoFire
-        geoFire.setLocation(CLLocation(latitude: appDelegate.currentPerson?.location["latitude"], longitude: appDelegate.currentPerson?.location["longitude"]), forKey: "location")
+        geoFire?.setLocation(CLLocation(latitude: (appDelegate.currentPerson?.location?["latitude"])!, longitude: (appDelegate.currentPerson?.location?["longitude"])!), forKey: "location")
 
         
         //go to the main tab bar view controller

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nnq-cS-NCW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,48 +10,47 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--LoginViewController-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Login View Controller-->
+        <scene sceneID="jMq-PI-r6E">
             <objects>
-                <viewController title="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="yka-by-2zj" customClass="LoginViewController" customModule="Cohort_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="59g-eu-RT8"/>
+                        <viewControllerLayoutGuide type="bottom" id="52Y-io-fzR"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                    <view key="view" contentMode="scaleToFill" id="nZb-dR-VB7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Cohort!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOG-QW-wGO">
-                                <rect key="frame" x="109" y="106" width="157" height="154"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Cohort!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnr-19-abW">
+                                <rect key="frame" x="125.5" y="111" width="124" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EOG-QW-wGO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="93" id="5dY-gT-s5j"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EOG-QW-wGO" secondAttribute="trailing" constant="93" id="IHf-uR-wAK"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EOG-QW-wGO" secondAttribute="bottom" constant="540" id="fym-dr-u9O"/>
-                            <constraint firstItem="EOG-QW-wGO" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="86" id="i3b-hJ-bAX"/>
+                            <constraint firstItem="dnr-19-abW" firstAttribute="centerX" secondItem="nZb-dR-VB7" secondAttribute="centerX" id="8Jd-cp-GEw"/>
+                            <constraint firstItem="dnr-19-abW" firstAttribute="centerY" secondItem="nZb-dR-VB7" secondAttribute="centerY" constant="-212" id="lpb-he-W20"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="S1m-gL-PWK"/>
                     <connections>
-                        <segue destination="5Jo-dm-hcQ" kind="show" identifier="loginTransition" id="F9S-JX-ikL"/>
-                        <segue destination="op7-83-3Eu" kind="show" identifier="initialSetupTransition" id="yQ2-hJ-p4p"/>
+                        <segue destination="op7-83-3Eu" kind="show" identifier="loginToInitialSetupSegue" id="aHa-2F-rkb"/>
+                        <segue destination="5Jo-dm-hcQ" kind="show" identifier="loginToMainTabBarSegue" id="zgv-Yu-l5L"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0yg-OK-6SL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-519.20000000000005" y="-767.76611694152928"/>
+            <point key="canvasLocation" x="-495.19999999999999" y="-850.52473763118451"/>
         </scene>
         <!--QuestionTableViewController-->
         <scene sceneID="goA-sE-cdL">
             <objects>
                 <tableViewController title="QuestionTableViewController" id="yN5-ek-bER" customClass="QuestionTableViewController" customModule="Cohort_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8fD-r2-euc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dkE-39-P62">
@@ -84,7 +83,7 @@
             <objects>
                 <tableViewController id="Mzk-0p-fbC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="BrJ-Q5-8OG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7jd-zT-Erd">
@@ -245,19 +244,19 @@
                                         <rect key="frame" x="0.0" y="20" width="311" height="760"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please add select your Gender, Birthday, and Location to finish creating your account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoH-nu-jUw">
-                                                <rect key="frame" x="0.0" y="0.0" width="311" height="61"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="311" height="51.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxa-Cp-R2J">
-                                                <rect key="frame" x="127" y="81" width="57" height="20.5"/>
+                                                <rect key="frame" x="127" y="71.5" width="57" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="or9-fV-u4I">
-                                                <rect key="frame" x="97" y="121.5" width="117" height="29"/>
+                                                <rect key="frame" x="97" y="108.5" width="117" height="25"/>
                                                 <segments>
                                                     <segment title="Male"/>
                                                     <segment title="Female"/>
@@ -267,22 +266,26 @@
                                                 </connections>
                                             </segmentedControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRS-yn-V0c">
-                                                <rect key="frame" x="123.5" y="169.5" width="64.5" height="20.5"/>
+                                                <rect key="frame" x="123.5" y="152.5" width="64.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egQ-jT-26n">
-                                                <rect key="frame" x="0.0" y="210" width="311" height="216"/>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Jw-Fe-M2U">
+                                                <rect key="frame" x="0.0" y="189.5" width="311" height="182.5"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="op7-83-3Eu" id="kUT-Sw-jI4"/>
+                                                    <outlet property="delegate" destination="op7-83-3Eu" id="xZo-Nu-zQe"/>
+                                                </connections>
                                             </pickerView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Zip Code Below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="130-5C-GdY">
-                                                <rect key="frame" x="53.5" y="446" width="204.5" height="20.5"/>
+                                                <rect key="frame" x="53.5" y="392" width="204.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDc-uV-v17">
-                                                <rect key="frame" x="115.5" y="486.5" width="80" height="30.5"/>
+                                                <rect key="frame" x="115.5" y="429" width="80" height="25.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -291,14 +294,14 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ge9-Tx-6kW">
-                                                <rect key="frame" x="78" y="537" width="155" height="30"/>
+                                                <rect key="frame" x="78" y="474.5" width="155" height="25.5"/>
                                                 <state key="normal" title="Click Here When Done"/>
                                                 <connections>
                                                     <action selector="finishSetup:" destination="op7-83-3Eu" eventType="touchUpInside" id="dOa-zK-pvL"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4F-zz-nd5">
-                                                <rect key="frame" x="0.0" y="587" width="311" height="173"/>
+                                                <rect key="frame" x="0.0" y="520" width="311" height="240"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -336,7 +339,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
-                        <outlet property="birthdayPicker" destination="egQ-jT-26n" id="Ete-1E-2En"/>
+                        <outlet property="birthdayPicker" destination="2Jw-Fe-M2U" id="hau-cO-KqJ"/>
                         <outlet property="errorLabel" destination="H4F-zz-nd5" id="Ek6-GG-jcA"/>
                         <outlet property="genderSegmentedControl" destination="or9-fV-u4I" id="Uyh-Hg-WA2"/>
                         <outlet property="scrollView" destination="b1k-oo-ifZ" id="5KW-gv-eFh"/>
@@ -346,7 +349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaR-bS-1Yl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="-789"/>
+            <point key="canvasLocation" x="198" y="-785"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="att-g0-F3F">
@@ -389,16 +392,16 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seo-aM-Osc">
-                                                <rect key="frame" x="0.0" y="129" width="311" height="217"/>
+                                                <rect key="frame" x="0.0" y="129" width="311" height="216.5"/>
                                             </pickerView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Zip Code Below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yl9-gp-jPR">
-                                                <rect key="frame" x="53.5" y="366" width="204.5" height="20.5"/>
+                                                <rect key="frame" x="53.5" y="365.5" width="204.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-sy-wEc">
-                                                <rect key="frame" x="115.5" y="406.5" width="80" height="30"/>
+                                                <rect key="frame" x="115.5" y="406" width="80" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -407,7 +410,7 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfZ-vc-Eun">
-                                                <rect key="frame" x="0.0" y="456.5" width="311" height="303.5"/>
+                                                <rect key="frame" x="0.0" y="456" width="311" height="304"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -420,7 +423,6 @@
                                         <state key="normal" title="Logout"/>
                                         <connections>
                                             <action selector="logout:" destination="0eV-75-2r3" eventType="touchUpInside" id="Tru-ba-Rwu"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="logout" id="QxE-r9-i3n"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -554,140 +556,28 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="Mzk-0p-fbC" kind="relationship" relationship="viewControllers" id="oAA-g9-Nd5"/>
-                        <segue destination="JBw-3U-Ot3" kind="relationship" relationship="viewControllers" id="Rib-Sf-vCE"/>
-                        <segue destination="yN5-ek-bER" kind="relationship" relationship="viewControllers" id="Cco-DX-AIf"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="au7-Nx-95q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-518" y="30"/>
         </scene>
-        <!--Initial Account Setup-->
-        <scene sceneID="rae-yU-tHe">
+        <!--Navigation Controller-->
+        <scene sceneID="sGa-va-Vtc">
             <objects>
-                <viewController id="zWu-wd-UhC" customClass="InitialSetupViewController" customModule="Cohort_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TeK-eU-l02"/>
-                        <viewControllerLayoutGuide type="bottom" id="zdZ-h0-FjL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Pik-UZ-5Bd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c1x-9s-CPP">
-                                <rect key="frame" x="32" y="0.0" width="311" height="800"/>
-                                <subviews>
-                                    <stackView contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Pgz-0z-Pni">
-                                        <rect key="frame" x="0.0" y="20" width="311" height="760"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please add select your Gender, Birthday, and Location to finish creating your account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30X-kt-XAO">
-                                                <rect key="frame" x="0.0" y="0.0" width="311" height="61"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMv-Dy-pgi">
-                                                <rect key="frame" x="127" y="81" width="57" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0iB-QE-IfZ">
-                                                <rect key="frame" x="97" y="121.5" width="117" height="29"/>
-                                                <segments>
-                                                    <segment title="Male"/>
-                                                    <segment title="Female"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="segmentedControlValueChanged:" destination="zWu-wd-UhC" eventType="valueChanged" id="MDM-4h-Cm8"/>
-                                                </connections>
-                                            </segmentedControl>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDi-IU-C49">
-                                                <rect key="frame" x="123.5" y="169.5" width="64.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBi-k5-edc">
-                                                <rect key="frame" x="0.0" y="210" width="311" height="216"/>
-                                            </pickerView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Zip Code Below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGM-t8-zNd">
-                                                <rect key="frame" x="53.5" y="446" width="204.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xkr-35-2eC">
-                                                <rect key="frame" x="115.5" y="486.5" width="80" height="30.5"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="zipCodeValueChanged:" destination="zWu-wd-UhC" eventType="editingDidEnd" id="qwO-63-awG"/>
-                                                </connections>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1o2-SX-4EE">
-                                                <rect key="frame" x="78" y="537" width="155" height="30"/>
-                                                <state key="normal" title="Click Here When Done"/>
-                                                <connections>
-                                                    <action selector="finishSetup:" destination="zWu-wd-UhC" eventType="touchUpInside" id="HFG-uA-DWe"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtf-2z-32S">
-                                                <rect key="frame" x="0.0" y="587" width="311" height="173"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Pgz-0z-Pni" firstAttribute="leading" secondItem="c1x-9s-CPP" secondAttribute="leading" id="AQF-yd-FsJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Pgz-0z-Pni" secondAttribute="trailing" constant="64" id="EMl-KM-Dah"/>
-                                    <constraint firstItem="Pgz-0z-Pni" firstAttribute="centerY" secondItem="c1x-9s-CPP" secondAttribute="centerY" id="cqe-oq-ToC"/>
-                                    <constraint firstItem="Pgz-0z-Pni" firstAttribute="centerX" secondItem="c1x-9s-CPP" secondAttribute="centerX" id="f3h-9i-qx1"/>
-                                    <constraint firstItem="Pgz-0z-Pni" firstAttribute="top" secondItem="c1x-9s-CPP" secondAttribute="top" constant="20" id="hyh-lm-6gC"/>
-                                    <constraint firstAttribute="bottom" secondItem="Pgz-0z-Pni" secondAttribute="bottom" id="mik-vn-KUr"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="contentSize">
-                                        <size key="value" width="320" height="800"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="rect" keyPath="frame">
-                                        <rect key="value" x="0.0" y="0.0" width="320" height="667"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="c1x-9s-CPP" firstAttribute="top" secondItem="Pik-UZ-5Bd" secondAttribute="topMargin" id="2Yq-c4-S2V"/>
-                            <constraint firstItem="c1x-9s-CPP" firstAttribute="leading" secondItem="Pik-UZ-5Bd" secondAttribute="leadingMargin" constant="16" id="4MM-tF-SaD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="c1x-9s-CPP" secondAttribute="trailing" constant="16" id="egn-Jf-mvR"/>
-                            <constraint firstItem="zdZ-h0-FjL" firstAttribute="top" secondItem="c1x-9s-CPP" secondAttribute="bottom" id="hOa-WD-ace"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Initial Account Setup" id="0HS-He-JVB"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="800"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nnq-cS-NCW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CYP-6I-heE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
                     <connections>
-                        <outlet property="birthdayPicker" destination="lBi-k5-edc" id="dY0-fc-MFl"/>
-                        <outlet property="errorLabel" destination="Rtf-2z-32S" id="GMN-Dc-TtU"/>
-                        <outlet property="genderSegmentedControl" destination="0iB-QE-IfZ" id="xej-hO-Rgt"/>
-                        <outlet property="scrollView" destination="c1x-9s-CPP" id="Slt-pO-Fql"/>
-                        <outlet property="submitButton" destination="1o2-SX-4EE" id="SUO-LK-Ocn"/>
-                        <outlet property="zipCodeTextField" destination="xkr-35-2eC" id="euk-4d-Wcj"/>
+                        <segue destination="yka-by-2zj" kind="relationship" relationship="rootViewController" id="EaV-Rg-bhs"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BUH-sO-KBm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qi7-9A-mdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="-789"/>
+            <point key="canvasLocation" x="-1434.4000000000001" y="-850.52473763118451"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Qhb-uF-y6F"/>
-    </inferredMetricsTieBreakers>
 </document>
